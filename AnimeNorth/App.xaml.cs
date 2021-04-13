@@ -1,4 +1,5 @@
 ﻿using System;
+using AnimeNorth.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -10,9 +11,9 @@ namespace AnimeNorth
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
-            var nav = new NavigationPage(new Page());
-            MainPage = nav;
+            MainPage = new AppShell();
+            //var nav = new NavigationPage(new Page());
+            //MainPage = nav;
         }
 
         protected override void OnStart()

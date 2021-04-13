@@ -1,0 +1,28 @@
+﻿<Shell xmlns="http://xamarin.com/schemas/2014/forms"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:views="clr-namespace:AnimeNorth.Views"
+       x:Class="AnimeNorth.AppShell">
+    
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+        <Tab Title="Domestic"
+             Icon="paw.png">
+            <ShellContent Title="Cats"
+                           />
+            <ShellContent Title="Dogs"
+                          />
+        </Tab>
+
+        <!--
+        Shell has implicit conversion operators that enable the Shell visual hierarchy to be simplified.
+        This is possible because a subclassed Shell object can only ever contain a FlyoutItem object or a TabBar object,
+        which can only ever contain Tab objects, which can only ever contain ShellContent objects.
+
+        The implicit conversion automatically wraps the ShellContent objects below in Tab objects.
+        -->
+        <ShellContent Title="Monkeys"
+                      ContentTemplate="{DataTemplate views:Home}" />
+        <ShellContent Title="Elephants"
+                      ContentTemplate="{DataTemplate views:Details}" />
+       
+    </FlyoutItem>
+</Shell>
