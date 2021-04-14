@@ -10,10 +10,10 @@
         iOS="icons"
         Android="icons.ttf#icons" />
     </ContentPage.Resources>
-    
+
     <ContentPage.Content>
-        
-        
+
+
         <Grid>
             <!--#region Page Rows Outline -->
             <Grid.RowDefinitions>
@@ -25,15 +25,59 @@
             <!--#endregion-->
 
             <!--#region Row #1 - Page Header -->
-            <StackLayout Grid.Row="1" Orientation="Horizontal">
-                <Image WidthRequest="2" Source="logo.png"/>
-                <SearchBar Placeholder="Enter search term"
+            <Grid Grid.Row="0" BackgroundColor="#303036">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+
+                <Image Grid.Column="0" HorizontalOptions="Start" VerticalOptions="Center" Source="logo.png"/>
+                <OnPlatform x:TypeArguments="View">
+                    <!--#region  Mobile search bar -->
+                    <On Platform="Android, iOS" >
+                        <!--<Grid Grid.Column="1"  >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="8*"/>
+                                <ColumnDefinition Width="1.4*"/>
+                            </Grid.ColumnDefinitions>-->
+                        <StackLayout Orientation="Horizontal" Grid.Column="1" HorizontalOptions="End" VerticalOptions="Center">
+                            <StackLayout  IsVisible="false" x:Name="searchBar" Orientation="Horizontal" HorizontalOptions="Start" Margin="0,0,15,0">
+                                <Button x:Name="btnCancelSearch" Clicked="HideSearchBar" BorderWidth="0" BorderColor="Transparent"
+                                HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="50"  BackgroundColor="Transparent" TextColor="Crimson" Text="&#xe5c4;" FontFamily="{StaticResource FontFamily}" />
+
+                                <SearchBar Margin="0" TextColor="GhostWhite" PlaceholderColor="Silver" Visual="Material" HorizontalOptions="Center"  Placeholder="Enter anime name"
+                                SearchButtonPressed="OnSearchBarButtonPressed" />
+
+                            </StackLayout>
+
+                            <StackLayout x:Name="btnSearch" HorizontalOptions="End">
+                                <Button Clicked="ShowSearchBar" BorderWidth="0" WidthRequest="60" BorderColor="Transparent"
+                                HorizontalOptions="End" VerticalOptions="Center" Margin="0,0,15,0" BackgroundColor="Transparent" TextColor="Crimson"  Text="&#xe8b6;" FontFamily="{StaticResource FontFamily}" />
+                            </StackLayout>
+                        </StackLayout>
+                    </On>
+                    <!--#endregion-->
+
+                    <!--#region  UWP search bar -->
+                    <On Platform="UWP">
+                        <SearchBar WidthRequest="300" TextColor="GhostWhite" PlaceholderColor="Silver" Visual="Material" VerticalOptions="Center" Grid.Column="1" HorizontalOptions="End" Margin="25" Placeholder="Enter anime name"
                             SearchButtonPressed="OnSearchBarButtonPressed" />
-            </StackLayout>
+                    </On>
+                    <!--#endregion-->
+                </OnPlatform>
+
+            </Grid>
+
+
             <!--#endregion-->
 
             <!--#region Row #2 - Filter -->
-            <StackLayout Grid.Row="2" Orientation="Horizontal">
+            <StackLayout Grid.Row="1" Orientation="Horizontal">
                 <tools:Expander>
                     <!--#region Collapse Header-->
                     <tools:Expander.Header>
@@ -76,7 +120,7 @@
                                WidthRequest="120" />
                                 <Label Grid.Column="1"
                                Text="Details"
-                               FontAttributes="Italic" />       
+                               FontAttributes="Italic" />
                             </Grid>
                         </DataTemplate>
                     </tools:Expander.ContentTemplate>

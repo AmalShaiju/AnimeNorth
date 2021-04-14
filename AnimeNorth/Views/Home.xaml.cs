@@ -26,5 +26,19 @@ namespace AnimeNorth.Views
         {
 
         }
+
+        private void ShowSearchBar(object sender, EventArgs e)
+        {
+            btnSearch.IsVisible = false;
+            btnCancelSearch.IsVisible = true;
+            searchBar.IsVisible = true;
+        }
+
+        private void HideSearchBar(object sender, EventArgs e)
+        {
+            btnSearch.IsVisible = true;
+            btnCancelSearch.IsVisible = false;
+            searchBar.IsVisible = false;
+        }
     }
 }
