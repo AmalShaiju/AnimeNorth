@@ -68,7 +68,7 @@
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <BundleResource Include="Resources\icons.otf" />
+    <BundleResource Include="Resources\icons.ttf" />
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Images.xcassets\AppIcons.appiconset\Contents.json">

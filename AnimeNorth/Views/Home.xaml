@@ -8,7 +8,7 @@
     <ContentPage.Resources>
         <OnPlatform x:Key="FontFamily" x:TypeArguments="x:String"
         iOS="icons"
-        Android="icons.otf#icons" />
+        Android="icons.ttf#icons" />
     </ContentPage.Resources>
     
     <ContentPage.Content>
@@ -42,7 +42,7 @@
                                FontAttributes="Bold"
                                FontSize="Medium" />
 
-                            <Label Text="&#xf13e;"
+                            <Label Text="&#xf230;"
                                 FontSize="30"
                                 FontFamily="{StaticResource FontFamily}"
                                 HorizontalOptions="Center" VerticalOptions="CenterAndExpand" >

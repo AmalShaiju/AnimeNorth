@@ -16,7 +16,7 @@
 
 		<Key>UIAppFonts</Key>
 		<array>
-			<string>icons.otf</string>
+			<string>icons.ttf</string>
 		</array>
 
 		<key>UISupportedInterfaceOrientations~ipad</key>
