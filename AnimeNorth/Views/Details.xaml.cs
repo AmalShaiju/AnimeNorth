@@ -16,5 +16,10 @@ namespace AnimeNorth.Views
         {
             InitializeComponent();
         }
+
+        private void MoveToHome(object sender, EventArgs e)
+        {
+            Navigation.PopAsync();
+        }
     }
 }

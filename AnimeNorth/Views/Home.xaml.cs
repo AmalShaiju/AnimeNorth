@@ -16,5 +16,15 @@ namespace AnimeNorth.Views
         {
             InitializeComponent();
         }
+
+        private async void NavigateToDetails(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new Details());
+        }
+
+        private void OnSearchBarButtonPressed(object sender, EventArgs e)
+        {
+
+        }
     }
 }

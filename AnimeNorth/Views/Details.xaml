@@ -4,9 +4,10 @@
              x:Class="AnimeNorth.Views.Details">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
+            <Label Text="Details!"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
+            <Button Text="Home" Clicked="MoveToHome"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

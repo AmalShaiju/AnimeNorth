@@ -3,6 +3,7 @@ using AnimeNorth.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
+[assembly: ExportFont("icons.ttf", Alias = "ANIcons")]
 namespace AnimeNorth
 {
     public partial class App : Application
@@ -10,10 +11,8 @@ namespace AnimeNorth
         public App()
         {
             InitializeComponent();
-
-            MainPage = new AppShell();
-            //var nav = new NavigationPage(new Page());
-            //MainPage = nav;
+            var nav = new NavigationPage(new Home());
+            MainPage = nav;
         }
 
         protected override void OnStart()
