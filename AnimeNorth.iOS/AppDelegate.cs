@@ -24,6 +24,7 @@ namespace AnimeNorth.iOS
         {
             global::Xamarin.Forms.Forms.Init();
             global::Xamarin.Forms.FormsMaterial.Init();
+            Syncfusion.SfGauge.XForms.iOS.SfGaugeRenderer.Init();
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

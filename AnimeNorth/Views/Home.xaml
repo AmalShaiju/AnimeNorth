@@ -3,6 +3,7 @@
              xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:tools="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:gauge="clr-namespace:Syncfusion.SfGauge.XForms;assembly=Syncfusion.SfGauge.XForms"
              x:Class="AnimeNorth.Views.Home">
 
     <ContentPage.Resources>
@@ -31,14 +32,29 @@
             <!--#endregion-->
 
             <!--#region Row #2 - Divider -->
-            <Grid BackgroundColor="#e2373c" Grid.Row="1" Margin="0,20,0,0">
-                <!-- AOT Image -->
-
-
-                <!-- Filters -->
+            <Grid BackgroundColor="#e2373c" Grid.Row="1" Margin="0,0,0,0">
+                
+                <!-- Guage -->
                 <StackLayout Grid.Column="0" Orientation="Horizontal" HorizontalOptions="End" >
-                    <Label  Text="Trending" FontFamily="Poppins " TextColor="#303036" FontAttributes="Bold" VerticalOptions="Center" FontSize="38" />
+                    <Label  Text="WeeboMeter" FontFamily="Poppins " TextColor="#303036" FontAttributes="Bold" VerticalOptions="Center" FontSize="28" />
                 </StackLayout>
+
+                <!-- AOT Image -->
+                <gauge:SfCircularGauge Grid.Column="1" HorizontalOptions="Start">
+
+                    <gauge:SfCircularGauge.Scales>
+                        <gauge:Scale ShowLabels="False" ShowTicks="False" RadiusFactor="1" RimThickness="10" RimColor="#303036" LabelOffset = "0.6">
+                            
+                            <gauge:Scale.Pointers>
+                                <gauge:NeedlePointer Color="Yellow" Value="20" />
+                            </gauge:Scale.Pointers>
+                        </gauge:Scale>
+
+                    </gauge:SfCircularGauge.Scales>
+                   
+                </gauge:SfCircularGauge>
+
+
             </Grid>
             <!--#endregion-->
 
