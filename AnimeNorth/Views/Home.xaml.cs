@@ -22,23 +22,8 @@ namespace AnimeNorth.Views
             await Navigation.PushAsync(new Details());
         }
 
-        private void OnSearchBarButtonPressed(object sender, EventArgs e)
-        {
+     
 
-        }
-
-        private void ShowSearchBar(object sender, EventArgs e)
-        {
-            btnSearch.IsVisible = false;
-            btnCancelSearch.IsVisible = true;
-            searchBar.IsVisible = true;
-        }
-
-        private void HideSearchBar(object sender, EventArgs e)
-        {
-            btnSearch.IsVisible = true;
-            btnCancelSearch.IsVisible = false;
-            searchBar.IsVisible = false;
-        }
+        
     }
 }
