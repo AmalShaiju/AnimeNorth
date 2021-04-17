@@ -13,9 +13,11 @@ namespace AnimeNorth.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Home : ContentPage
     {
-        public string Answer { get; set; }
-        public List<Button> buttons = new List<Button>();
-        public int lifeLeft = 4;
+        private string Answer { get; set; }
+        private List<Button> buttons = new List<Button>();
+        private List<string> options = new List<string>();
+        private int lifeLeft = 4;
+        private int Score = 0;
 
 
         public Home()
@@ -53,55 +55,63 @@ namespace AnimeNorth.Views
 
         private async Task<string> GetAnimeSynopsisAsync()
         {
-            // get an anime save the asnwer and return the synopsis
             Random random = new Random();
-            AnimeByIdModel anime = await Anime.GetAnimeAsync(random.Next(1000));
-            string title = anime.Data.Attributes.Titles.EnJp;
-            this.Answer = title;
+            AnimeByIdModel anime = new AnimeByIdModel();
 
-            // Create a btn with the answer as txt
-            this.buttons.Add(createbtn(title, Color.Transparent, Color.Red));
+            // get an anime save the asnwer and return the synopsis
+            try
+            {
+                anime = await Anime.GetAnimeAsync(random.Next(1000));
+            }
+            catch
+            {
+                anime = await Anime.GetAnimeAsync(random.Next(100,107));
+            }
+            finally
+            {
+                if (anime.Data.Attributes.Synopsis.Length < 50)
+                    anime = await Anime.GetAnimeAsync(random.Next(1,20));
 
+                this.Answer = anime.Data.Attributes.Titles.EnJp;
+
+                // Create a btn with the answer as txt
+                this.buttons.Add(createbtn(anime.Data.Attributes.Titles.EnJp, Color.Transparent, Color.Red));
+            }
 
             return anime.Data.Attributes.Synopsis;
+
         }
 
         private async Task<List<Button>> SetDummmyOptionsAsync()
         {
             List<Button> buttonsToreturn = new List<Button>();
-            string title = "";
+            AnimeByIdModel anime = new AnimeByIdModel();
+            Random random = new Random();
 
             // populate options with random Titles
             for (int i = 0; i < 3; i++)
             {
                 try
                 {
-                    Random random = new Random();
-                    int rand = random.Next(1000);
-
                     // get the anime with the random id
-                    AnimeByIdModel anime = await Anime.GetAnimeAsync(rand);
-
-                    // get the title of the anime
-                    title = anime.Data.Attributes.Titles.EnJp;
+                    anime = await Anime.GetAnimeAsync(random.Next(1000));
                 }
                 catch
                 {
                     // if no anime exist with generated random int
-                    Random random = new Random();
-                    int rand = random.Next(100, 120);
-
                     // get the anime with the random id
-                    AnimeByIdModel anime = await Anime.GetAnimeAsync(rand);
-
-                    // get the title of the anime
-                    title = anime.Data.Attributes.Titles.EnJp;
+                    anime = await Anime.GetAnimeAsync(random.Next(100, 107));
 
                 }
                 finally
                 {
+                    if(options.Contains(anime.Data.Attributes.Titles.EnJp))
+                        anime = await Anime.GetAnimeAsync(random.Next(1, 20));
+
+                    options.Add(anime.Data.Attributes.Titles.EnJp);
+
                     // Create a btn and add to the button list
-                    buttonsToreturn.Add(createbtn(title, Color.Transparent, Color.Red));
+                    buttonsToreturn.Add(createbtn(anime.Data.Attributes.Titles.EnJp, Color.Transparent, Color.Red));
                 }
 
             }
@@ -116,10 +126,12 @@ namespace AnimeNorth.Views
         {
             string optionSelected = (sender as Button).Text;
 
-
+            // check if the text of the button clicked is same as asnwer
             if (Answer.Equals(optionSelected))
             {
                 (sender as Button).BackgroundColor = Color.SeaGreen;
+
+                Score += 10;
 
             }
             else
@@ -128,19 +140,23 @@ namespace AnimeNorth.Views
 
                 controlLayout.IsVisible = true;
 
+                // call the animation
                 ReduceLife();
                 this.lifeLeft -= 1;
 
+
+                if (Score > 0)
+                    Score -= 5;
 
             }
 
             (sender as Button).TextColor = Color.White;
 
+            // Change Guage 
+            guagePointer.Value = Score;
 
             // setup next round
             SetUpRound();
-
-
         }
 
 
@@ -163,6 +179,8 @@ namespace AnimeNorth.Views
 
         private void ReduceLife()
         {
+            // fade out each heart based on life 
+
             if (this.lifeLeft == 4)
             {
                 life4.FadeTo(0, 2000);
@@ -177,12 +195,18 @@ namespace AnimeNorth.Views
             }
             else if (lifeLeft == 1)
             {
+                // last life remove
                 life1.FadeTo(0, 2000);
                 lblWrong.IsVisible = false;
                 btnContinue.IsVisible = false;
 
-                opm.IsVisible = true;
+                // show the anime meme and game over lbl
+                // opm.IsVisible = true;
                 lblGameOver.IsVisible = true;
+
+                // show Achived score
+                lblFinalScore.Text = $"Your Score : {Score}";
+                lblFinalScore.IsVisible = true;
             }
            
         }
@@ -194,14 +218,21 @@ namespace AnimeNorth.Views
 
         private void ResetGame(object sender, EventArgs e)
         {
+            // Reset life 
             lifeLeft = 4;
+            guagePointer.Value = 0;
+            Score = 0;
 
+            // bring back the hear image 
             life1.FadeTo(1, 2000);
             life2.FadeTo(1, 2000);
             life3.FadeTo(1, 2000);
             life4.FadeTo(1, 2000);
 
+            lblFinalScore.IsVisible = false;
             controlLayout.IsVisible = false;
+
+            btnContinue.IsVisible = true;
 
         }
     }
