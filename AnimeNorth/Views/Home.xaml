@@ -33,12 +33,6 @@
 
             <!--#region Row #2 - Divider -->
             <Grid BackgroundColor="#e2373c" Grid.Row="1" Margin="0,0,0,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="1*"/>
-                </Grid.ColumnDefinitions>
-
                 <!-- Divided Heading -->
                 <StackLayout Grid.Column="0" Orientation="Horizontal" HorizontalOptions="End" >
                     <Label  Text="WeeboMeter" FontFamily="Poppins " TextColor="#303036" FontAttributes="Bold" VerticalOptions="Center" FontSize="28" />
@@ -60,13 +54,6 @@
                 </gauge:SfCircularGauge>
 
                 <!-- Hearts -->
-                <StackLayout Grid.Column="2" Orientation="Horizontal">
-                    <Image Source="heart.png"/>
-                    <Image Source="heart.png"/>
-                    <Image Source="heart.png"/>
-                    <Image Source="heart.png"/>
-                    <Image Source="heart.png"/>
-                </StackLayout>
 
             </Grid>
             <!--#endregion-->
@@ -120,7 +107,58 @@
             </ScrollView>
 
             <!--#endregion-->
+            <AbsoluteLayout x:Name="controlLayout" IsVisible="false" Grid.RowSpan="3" 
+                 VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
 
+                <BoxView
+                      AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
+              AbsoluteLayout.LayoutFlags="All"          
+              BackgroundColor= "#303036f2"
+              HeightRequest="100"
+              WidthRequest="100"/>
+
+                <Frame AbsoluteLayout.LayoutBounds="0.5, 0.5, 0.5, 0.6"     
+                AbsoluteLayout.LayoutFlags="All" BackgroundColor="Transparent" Background="#303036">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="2*"/>
+                        </Grid.RowDefinitions>
+
+                        <ActivityIndicator
+                          AbsoluteLayout.LayoutBounds="0.5, 0.5, -1, -1" 
+                          AbsoluteLayout.LayoutFlags="PositionProportional"          
+                          IsRunning="True"
+                          Color="Red"
+                          VerticalOptions="CenterAndExpand"
+                          HorizontalOptions="CenterAndExpand"/>
+
+                        <Label x:Name="lblWrong" Grid.Row="1" VerticalOptions="Center" HorizontalOptions="Center" FontSize="28" FontAttributes="Bold" TextColor="#e2373c" Text="Wrong Answer"/>
+
+                        <Label  x:Name="lblGameOver" IsVisible="false" Grid.Row="1" VerticalOptions="Center" HorizontalOptions="Center" FontSize="28" FontAttributes="Bold" TextColor="#e2373c" Text="GAME OVER"/>
+                        
+
+                        <StackLayout Grid.Row="2" Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+                            <Image x:Name="life1" Source="heart.png" Scale="0.4"/>
+                            <Image x:Name="life2" Source="heart.png" Scale="0.4"/>
+                            <Image x:Name="life3" Source="heart.png" Scale="0.4"/>
+                            <Image x:Name="life4" Source="heart.png" Scale="0.4"/>
+                            <Image VerticalOptions="Center" HorizontalOptions="Center" x:Name="opm" IsVisible="false" Source="opm.png"/>
+                        </StackLayout>
+
+                        <StackLayout Grid.Row="3" Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+                            <Button x:Name="btnContinue"  Clicked="ContinueGame" Text="Continue" TextColor="GhostWhite" Margin="0,0,50,0" WidthRequest="150" HeightRequest="50" BorderColor="Green"/>
+                            <Button Clicked="ResetGame" Text="Start Again" TextColor="GhostWhite"  WidthRequest="150" HeightRequest="50" BorderColor="Red"/>
+
+                        </StackLayout>
+                    </Grid>
+                    
+                </Frame>
+
+              
+            </AbsoluteLayout>
         </Grid>
     </ContentPage.Content>
 </ContentPage>
