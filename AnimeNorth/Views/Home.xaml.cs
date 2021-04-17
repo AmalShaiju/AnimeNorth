@@ -230,8 +230,10 @@ namespace AnimeNorth.Views
             life4.FadeTo(1, 2000);
 
             lblFinalScore.IsVisible = false;
+            lblGameOver.IsVisible = false;
             controlLayout.IsVisible = false;
 
+            lblWrong.IsVisible = true;
             btnContinue.IsVisible = true;
 
         }

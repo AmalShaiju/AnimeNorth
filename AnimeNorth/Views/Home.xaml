@@ -61,19 +61,19 @@
 
             <!--#region Row #3 Content Area -->
             <ScrollView Grid.Row="2">
-                <Grid Margin="0,0,0,50">
+                <Grid Margin="0,0,0,50"  >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="4*"/>
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
 
                     <Frame BorderColor="Red" Margin="25"  BackgroundColor="Transparent">
-                        <StackLayout Grid.Row="0" Background="Transparent" BackgroundColor= "Transparent">
+                        <StackLayout Grid.Row="0" Background="Transparent" >
                             <!-- Title -->
                             <Label x:Name="lblTitle" Text="Synopsis" TextColor="Red" FontSize="30" FontAttributes="Bold" Margin="0,0,0,25" HorizontalOptions="Center" VerticalOptions="Center"  />
 
                             <!-- Synopsis -->
-                            <Label x:Name="lblSynopsis" LineHeight="2.5" FontSize="15" FontFamily="Arial" TextColor="GhostWhite" Text="In the year 2071, humanity has colonized several of the planets and moons of the solar system leaving the now uninhabitable surface of planet Earth behind. The Inter Solar System Police attempts to keep peace in the galaxy, aided in part by outlaw bounty hunters, referred to as The ragtag team aboard the spaceship Bebop are two such individuals.\nMellow and carefree Spike Spiegel is balanced by his boisterous, pragmatic partner Jet Black as the pair makes a living chasing bounties and collecting rewards. Thrown off course by the addition of new members that they meet in their travels—Ein, a genetically engineered, highly intelligent Welsh Corgi; femme fatale Faye Valentine, an enigmatic trickster with memory loss; and the strange computer whiz kid Edward Wong—the crew embarks on thrilling adventures that unravel each member's dark and mysterious past little by little. \nWell-balanced with high density action and light-hearted comedy, Cowboy Bebop is a space Western classic and an homage to the smooth and improvised music it is named after.\n\n(Source: MAL Rewrite)"/>
+                            <Label x:Name="lblSynopsis"  LineHeight="2.5" FontSize="15" FontFamily="Arial" TextColor="GhostWhite" Text="In the year 2071, humanity has colonized several of the planets and moons of the solar system leaving the now uninhabitable surface of planet Earth behind. The Inter Solar System Police attempts to keep peace in the galaxy, aided in part by outlaw bounty hunters, referred to as The ragtag team aboard the spaceship Bebop are two such individuals.\nMellow and carefree Spike Spiegel is balanced by his boisterous, pragmatic partner Jet Black as the pair makes a living chasing bounties and collecting rewards. Thrown off course by the addition of new members that they meet in their travels—Ein, a genetically engineered, highly intelligent Welsh Corgi; femme fatale Faye Valentine, an enigmatic trickster with memory loss; and the strange computer whiz kid Edward Wong—the crew embarks on thrilling adventures that unravel each member's dark and mysterious past little by little. \nWell-balanced with high density action and light-hearted comedy, Cowboy Bebop is a space Western classic and an homage to the smooth and improvised music it is named after.\n\n(Source: MAL Rewrite)"/>
                         </StackLayout>
                     </Frame>
 
@@ -123,33 +123,24 @@
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="1*"/>
-                            <RowDefinition Height="1*"/>
                             <RowDefinition Height="2*"/>
                             <RowDefinition Height="2*"/>
                         </Grid.RowDefinitions>
 
-                        <ActivityIndicator
-                          AbsoluteLayout.LayoutBounds="0.5, 0.5, -1, -1" 
-                          AbsoluteLayout.LayoutFlags="PositionProportional"          
-                          IsRunning="True"
-                          Color="Red"
-                          VerticalOptions="CenterAndExpand"
-                          HorizontalOptions="CenterAndExpand"/>
+                        <Label x:Name="lblWrong" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center" FontSize="28" FontAttributes="Bold" TextColor="#e2373c" Text="Wrong Answer"/>
 
-                        <Label x:Name="lblWrong" Grid.Row="1" VerticalOptions="Center" HorizontalOptions="Center" FontSize="28" FontAttributes="Bold" TextColor="#e2373c" Text="Wrong Answer"/>
-
-                        <Label  x:Name="lblGameOver" IsVisible="false" Grid.Row="1" VerticalOptions="Center" HorizontalOptions="Center" FontSize="28" FontAttributes="Bold" TextColor="#e2373c" Text="GAME OVER"/>
+                        <Label  x:Name="lblGameOver" IsVisible="false" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center" FontSize="28" FontAttributes="Bold" TextColor="#e2373c" Text="GAME OVER"/>
 
 
-                        <Grid HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="2">
+                        <Grid HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="1">
                             <Image Grid.Column="0"  x:Name="life1" Source="heart.png" Scale="0.4"/>
                             <Image Grid.Column="1" x:Name="life2" Source="heart.png" Scale="0.4"/>
                             <Image Grid.Column="2" x:Name="life3" Source="heart.png" Scale="0.4"/>
                             <Image Grid.Column="3"  x:Name="life4" Source="heart.png" Scale="0.4"/>
-                            <Label HorizontalTextAlignment="Center" Grid.Column="0" Grid.ColumnSpan="4"  x:Name="lblFinalScore" IsVisible="false" VerticalOptions="Center" HorizontalOptions="Center" FontSize="40" FontAttributes="Bold" TextColor="yellow" Text="Your Score : 18"/>
+                            <Label HorizontalTextAlignment="Center" Grid.Column="0" Grid.ColumnSpan="4"  x:Name="lblFinalScore" IsVisible="false" VerticalOptions="Center" HorizontalOptions="Center" FontSize="20" FontAttributes="Bold" TextColor="yellow" Text="Your Score : 18"/>
                         </Grid>
 
-                        <Grid Grid.Row="3"  VerticalOptions="Center">
+                        <Grid Grid.Row="2"  VerticalOptions="Center">
                             <Button Grid.Column="0" x:Name="btnContinue"  Clicked="ContinueGame" Text="Continue" TextColor="GhostWhite" BorderColor="Green"/>
                             <Button Grid.Column="1" Clicked="ResetGame" Text="Start Again" TextColor="GhostWhite" BorderColor="Red"/>
 
