@@ -33,32 +33,45 @@
 
             <!--#region Row #2 - Divider -->
             <Grid BackgroundColor="#e2373c" Grid.Row="1" Margin="0,0,0,0">
-                
-                <!-- Guage -->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Divided Heading -->
                 <StackLayout Grid.Column="0" Orientation="Horizontal" HorizontalOptions="End" >
                     <Label  Text="WeeboMeter" FontFamily="Poppins " TextColor="#303036" FontAttributes="Bold" VerticalOptions="Center" FontSize="28" />
                 </StackLayout>
 
-                <!-- AOT Image -->
+                <!-- Guage -->
                 <gauge:SfCircularGauge Grid.Column="1" HorizontalOptions="Start">
 
                     <gauge:SfCircularGauge.Scales>
                         <gauge:Scale ShowLabels="False" ShowTicks="False" RadiusFactor="1" RimThickness="10" RimColor="#303036" LabelOffset = "0.6">
-                            
+
                             <gauge:Scale.Pointers>
-                                <gauge:NeedlePointer Color="Yellow" Value="20" />
+                                <gauge:NeedlePointer Color="Red" Value="10" />
                             </gauge:Scale.Pointers>
                         </gauge:Scale>
 
                     </gauge:SfCircularGauge.Scales>
-                   
+
                 </gauge:SfCircularGauge>
 
+                <!-- Hearts -->
+                <StackLayout Grid.Column="2" Orientation="Horizontal">
+                    <Image Source="heart.png"/>
+                    <Image Source="heart.png"/>
+                    <Image Source="heart.png"/>
+                    <Image Source="heart.png"/>
+                    <Image Source="heart.png"/>
+                </StackLayout>
 
             </Grid>
             <!--#endregion-->
 
-            <!--#region Row #3 List -->
+            <!--#region Row #3 Content Area -->
             <ScrollView Grid.Row="2">
                 <Grid Margin="0,0,0,50">
                     <Grid.RowDefinitions>
@@ -69,10 +82,10 @@
                     <Frame BorderColor="Red" Margin="25"  BackgroundColor="Transparent">
                         <StackLayout Grid.Row="0" Background="Transparent" BackgroundColor= "Transparent">
                             <!-- Title -->
-                            <Label Text="Synopsis" TextColor="Red" FontSize="30" FontAttributes="Bold" Margin="0,0,0,25" HorizontalOptions="Center" VerticalOptions="Center"  />
+                            <Label x:Name="lblTitle" Text="Synopsis" TextColor="Red" FontSize="30" FontAttributes="Bold" Margin="0,0,0,25" HorizontalOptions="Center" VerticalOptions="Center"  />
 
-                            <!-- Content -->
-                            <Label LineHeight="2.5" FontSize="15" FontFamily="Arial" TextColor="GhostWhite" Text="In the year 2071, humanity has colonized several of the planets and moons of the solar system leaving the now uninhabitable surface of planet Earth behind. The Inter Solar System Police attempts to keep peace in the galaxy, aided in part by outlaw bounty hunters, referred to as The ragtag team aboard the spaceship Bebop are two such individuals.\nMellow and carefree Spike Spiegel is balanced by his boisterous, pragmatic partner Jet Black as the pair makes a living chasing bounties and collecting rewards. Thrown off course by the addition of new members that they meet in their travels—Ein, a genetically engineered, highly intelligent Welsh Corgi; femme fatale Faye Valentine, an enigmatic trickster with memory loss; and the strange computer whiz kid Edward Wong—the crew embarks on thrilling adventures that unravel each member's dark and mysterious past little by little. \nWell-balanced with high density action and light-hearted comedy, Cowboy Bebop is a space Western classic and an homage to the smooth and improvised music it is named after.\n\n(Source: MAL Rewrite)"/>
+                            <!-- Synopsis -->
+                            <Label x:Name="lblSynopsis" LineHeight="2.5" FontSize="15" FontFamily="Arial" TextColor="GhostWhite" Text="In the year 2071, humanity has colonized several of the planets and moons of the solar system leaving the now uninhabitable surface of planet Earth behind. The Inter Solar System Police attempts to keep peace in the galaxy, aided in part by outlaw bounty hunters, referred to as The ragtag team aboard the spaceship Bebop are two such individuals.\nMellow and carefree Spike Spiegel is balanced by his boisterous, pragmatic partner Jet Black as the pair makes a living chasing bounties and collecting rewards. Thrown off course by the addition of new members that they meet in their travels—Ein, a genetically engineered, highly intelligent Welsh Corgi; femme fatale Faye Valentine, an enigmatic trickster with memory loss; and the strange computer whiz kid Edward Wong—the crew embarks on thrilling adventures that unravel each member's dark and mysterious past little by little. \nWell-balanced with high density action and light-hearted comedy, Cowboy Bebop is a space Western classic and an homage to the smooth and improvised music it is named after.\n\n(Source: MAL Rewrite)"/>
                         </StackLayout>
                     </Frame>
 
@@ -88,20 +101,17 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
 
-                        <Frame BorderColor="Red" Grid.Row="0"  BackgroundColor="Transparent" Grid.Column="0" Padding="0">
-                            <Button StyleClass="btnOption"  BackgroundColor="Transparent" TextColor="Red" Text="Naruto" />
+                        <Frame x:Name="frameOption1" BorderColor="Red" Grid.Row="0"  BackgroundColor="Transparent" Grid.Column="0" Padding="0">
+                            <!-- Buuton -->
                         </Frame>
 
-                        <Frame BorderColor="Red" Grid.Row="0"  BackgroundColor="Transparent" Grid.Column="1" Padding="0">
-                            <Button StyleClass="btnOption" BackgroundColor="Transparent" TextColor="Red" Text="One Piece" />
+                        <Frame x:Name="frameOption2" BorderColor="Red" Grid.Row="0"  BackgroundColor="Transparent" Grid.Column="1" Padding="0">
                         </Frame>
 
-                        <Frame BorderColor="Red" Grid.Row="1"  BackgroundColor="Transparent" Grid.Column="0" Padding="0">
-                            <Button StyleClass="btnOption" BackgroundColor="Transparent" TextColor="Red" Text="Bleach" />
+                        <Frame x:Name="frameOption3" BorderColor="Red" Grid.Row="1"  BackgroundColor="Transparent" Grid.Column="0" Padding="0">
                         </Frame>
 
-                        <Frame BorderColor="Red" Grid.Row="1"  BackgroundColor="Transparent" Grid.Column="1" Padding="0">
-                            <Button StyleClass="btnOption" BackgroundColor="Transparent" TextColor="Red" Text="Attack On Titans" />
+                        <Frame x:Name="frameOption4" BorderColor="Red" Grid.Row="1"  BackgroundColor="Transparent" Grid.Column="1" Padding="0">
                         </Frame>
                     </Grid>
 

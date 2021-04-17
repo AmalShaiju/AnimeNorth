@@ -131,6 +131,7 @@
     <Content Include="Assets\Wide310x150Logo.scale-100.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
+    <AndroidResource Include="heart.png" />
     <Content Include="logo.png" />
     <Content Include="Properties\Default.rd.xml" />
   </ItemGroup>
