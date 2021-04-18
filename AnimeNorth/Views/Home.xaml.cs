@@ -151,6 +151,9 @@ namespace AnimeNorth.Views
                 (sender as Button).BackgroundColor = Color.SeaGreen;
 
                 Score += 10;
+                
+                //to clear the timer that is currently going on
+                deviceTimer.Stop();
 
                 SetUpRound();
             }
@@ -235,6 +238,9 @@ namespace AnimeNorth.Views
 
         private void ContinueGame(object sender, EventArgs e)
         {
+            //to clear the timer that is currently going on
+            deviceTimer.Stop();
+            
             // setup next round
             SetUpRound();
 
@@ -260,6 +266,10 @@ namespace AnimeNorth.Views
 
             lblWrong.IsVisible = true;
             btnContinue.IsVisible = true;
+            
+             //to clear the timer that is currently going on
+            deviceTimer.Stop();
+            SetUpRound();
 
         }
     }
