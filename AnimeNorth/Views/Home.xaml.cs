@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Kitsu.Anime;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using System.Timers;
 
 namespace AnimeNorth.Views
 {
@@ -18,7 +19,7 @@ namespace AnimeNorth.Views
         private List<string> options = new List<string>();
         private int lifeLeft = 4;
         private int Score = 0;
-
+        DeviceTimer deviceTimer;
 
         public Home()
         {
@@ -36,6 +37,7 @@ namespace AnimeNorth.Views
             // clear the options and answer 
             buttons.Clear();
             Answer = "";
+            timerGuagePointer.Value = 0;
 
             // set options : wrap the awaited task within a task to make it wait
             this.buttons = Task.Run(async () => await SetDummmyOptionsAsync()).Result;
@@ -49,6 +51,23 @@ namespace AnimeNorth.Views
             this.frameOption2.Content = buttons[1];
             this.frameOption3.Content = buttons[2];
             this.frameOption4.Content = buttons[3];
+
+
+             deviceTimer = new DeviceTimer(StartTimer, TimeSpan.FromSeconds(1), true, true);
+           
+
+        }
+
+        private void StartTimer()
+        {
+            if(timerGuagePointer.Value != 60)
+            {
+                timerGuagePointer.Value += 1;
+            }
+            else
+            {
+                SetUpRound();
+            }
         }
 
 
@@ -133,6 +152,7 @@ namespace AnimeNorth.Views
 
                 Score += 10;
 
+                SetUpRound();
             }
             else
             {
@@ -150,13 +170,13 @@ namespace AnimeNorth.Views
 
             }
 
+            deviceTimer.Stop();
+
             (sender as Button).TextColor = Color.White;
 
             // Change Guage 
             guagePointer.Value = Score;
 
-            // setup next round
-            SetUpRound();
         }
 
 
@@ -211,8 +231,13 @@ namespace AnimeNorth.Views
            
         }
 
+      
+
         private void ContinueGame(object sender, EventArgs e)
         {
+            // setup next round
+            SetUpRound();
+
             controlLayout.IsVisible = false;
         }
 
