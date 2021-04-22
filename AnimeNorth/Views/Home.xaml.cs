@@ -4,16 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Kitsu.Anime;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using System.Timers;
+using AnimeNorth.Data;
 
 namespace AnimeNorth.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Home : ContentPage
     {
+        IAnimeRepository AnimeRepository;
         private string Answer { get; set; }
         private List<Button> buttons = new List<Button>();
         private List<string> options = new List<string>();
@@ -24,6 +25,7 @@ namespace AnimeNorth.Views
         public Home()
         {
             InitializeComponent();
+            AnimeRepository = new AnimeRepository();
         }
 
         protected  override void OnAppearing()
@@ -75,21 +77,23 @@ namespace AnimeNorth.Views
         private async Task<string> GetAnimeSynopsisAsync()
         {
             Random random = new Random();
-            AnimeByIdModel anime = new AnimeByIdModel();
+            AnimeById anime = new AnimeById();
 
             // get an anime save the asnwer and return the synopsis
             try
             {
-                anime = await Anime.GetAnimeAsync(random.Next(1000));
+                anime = await AnimeRepository.GetAnimeAsync(random.Next(1000));
             }
             catch
             {
-                anime = await Anime.GetAnimeAsync(random.Next(100,107));
+                // if no anime exist for the random id get one from hard coded
+                anime = await AnimeRepository.GetAnimeAsync(random.Next(100,107));
             }
             finally
             {
-                if (anime.Data.Attributes.Synopsis.Length < 50)
-                    anime = await Anime.GetAnimeAsync(random.Next(1,20));
+                // if the synopsis is too short 
+                if (anime.Data.Attributes.Synopsis.Length < 100)
+                    anime = await AnimeRepository.GetAnimeAsync(random.Next(1,20));
 
                 this.Answer = anime.Data.Attributes.Titles.EnJp;
 
@@ -104,7 +108,7 @@ namespace AnimeNorth.Views
         private async Task<List<Button>> SetDummmyOptionsAsync()
         {
             List<Button> buttonsToreturn = new List<Button>();
-            AnimeByIdModel anime = new AnimeByIdModel();
+            AnimeById anime = new AnimeById();
             Random random = new Random();
 
             // populate options with random Titles
@@ -113,19 +117,19 @@ namespace AnimeNorth.Views
                 try
                 {
                     // get the anime with the random id
-                    anime = await Anime.GetAnimeAsync(random.Next(1000));
+                    anime = await AnimeRepository.GetAnimeAsync(random.Next(1000));
                 }
                 catch
                 {
                     // if no anime exist with generated random int
                     // get the anime with the random id
-                    anime = await Anime.GetAnimeAsync(random.Next(100, 107));
+                    anime = await AnimeRepository.GetAnimeAsync(random.Next(100, 107));
 
                 }
                 finally
                 {
                     if(options.Contains(anime.Data.Attributes.Titles.EnJp))
-                        anime = await Anime.GetAnimeAsync(random.Next(1, 20));
+                        anime = await AnimeRepository.GetAnimeAsync(random.Next(1, 20));
 
                     options.Add(anime.Data.Attributes.Titles.EnJp);
 
@@ -173,7 +177,6 @@ namespace AnimeNorth.Views
 
             }
 
-            deviceTimer.Stop();
 
             (sender as Button).TextColor = Color.White;
 
