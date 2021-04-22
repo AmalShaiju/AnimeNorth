@@ -15,9 +15,23 @@ namespace AnimeNorth.Views
     public partial class Home : ContentPage
     {
         IAnimeRepository AnimeRepository;
+        Random random = new Random();
+
+
         private string Answer { get; set; }
         private List<Button> buttons = new List<Button>();
         private List<string> options = new List<string>();
+        private List<string> memes = new List<string>(new string[] {
+        "https://ahseeit.com/anime/king-include/uploads/2020/10/97298653_932129123875973_4067169211974800413_n-2224931733.jpg",
+        "https://i.redd.it/7gppjrmevju61.jpg",
+        "https://i.redd.it/58ci1a7gopu61.jpg",
+        "https://www.reddit.com/r/ProgrammerAnimemes/",
+        "https://i.redd.it/q6keqrb670r61.jpg",
+        "https://i.redd.it/97qtim8k5ml61.jpg",
+        "https://i.redd.it/2mw18vl998l61.png",
+        "https://preview.redd.it/zm04gnbwv2c61.jpg?width=640&crop=smart&auto=webp&s=fbc0c0e1179a9bb8280b1b4dd71d16225c56779c"
+        });
+
         private int lifeLeft = 4;
         private int Score = 0;
         DeviceTimer deviceTimer;
@@ -35,7 +49,15 @@ namespace AnimeNorth.Views
 
         private async void SetUpRound()
         {
+            try
+            {
+                deviceTimer.Stop();
 
+            }
+            catch
+            {
+
+            }
             // clear the options and answer 
             buttons.Clear();
             Answer = "";
@@ -72,11 +94,8 @@ namespace AnimeNorth.Views
             }
         }
 
-
-
         private async Task<string> GetAnimeSynopsisAsync()
         {
-            Random random = new Random();
             AnimeById anime = new AnimeById();
 
             // get an anime save the asnwer and return the synopsis
@@ -109,7 +128,6 @@ namespace AnimeNorth.Views
         {
             List<Button> buttonsToreturn = new List<Button>();
             AnimeById anime = new AnimeById();
-            Random random = new Random();
 
             // populate options with random Titles
             for (int i = 0; i < 3; i++)
@@ -144,7 +162,6 @@ namespace AnimeNorth.Views
 
         }
 
-
         protected void OptionSelected(object sender, EventArgs e)
         {
             string optionSelected = (sender as Button).Text;
@@ -157,9 +174,13 @@ namespace AnimeNorth.Views
                 Score += 10;
                 
                 //to clear the timer that is currently going on
-                deviceTimer.Stop();
+                //deviceTimer.Stop();
 
                 SetUpRound();
+                if(Score > 5)
+                {
+                    GameCleared();
+                }
             }
             else
             {
@@ -184,7 +205,6 @@ namespace AnimeNorth.Views
             guagePointer.Value = Score;
 
         }
-
 
         // Helper Functions
         private Button createbtn(string text, Color backgroundColor, Color textColor)
@@ -237,12 +257,10 @@ namespace AnimeNorth.Views
            
         }
 
-      
-
         private void ContinueGame(object sender, EventArgs e)
         {
             //to clear the timer that is currently going on
-            deviceTimer.Stop();
+          //  deviceTimer.Stop();
             
             // setup next round
             SetUpRound();
@@ -266,14 +284,22 @@ namespace AnimeNorth.Views
             lblFinalScore.IsVisible = false;
             lblGameOver.IsVisible = false;
             controlLayout.IsVisible = false;
+            gameClearedLayout.IsVisible = false;
 
             lblWrong.IsVisible = true;
             btnContinue.IsVisible = true;
             
              //to clear the timer that is currently going on
-            deviceTimer.Stop();
+           // deviceTimer.Stop();
             SetUpRound();
 
         }
+
+        private void GameCleared()
+        {
+            gameClearedLayout.IsVisible = true;
+            animeMeme.Source = memes[random.Next(memes.Count)];
+        }
     }
+
 }

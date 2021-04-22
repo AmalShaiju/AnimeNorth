@@ -43,8 +43,7 @@
                 <gauge:SfCircularGauge  Grid.Column="1" HorizontalOptions="Start">
 
                     <gauge:SfCircularGauge.Scales>
-                        <gauge:Scale ShowLabels="False" ShowTicks="True" RadiusFactor="1" RimThickness="10" RimColor="#303036" LabelOffset = "0.6">
-
+                        <gauge:Scale ShowLabels="False" StartValue="0" EndValue="100" Interval="20" ShowTicks="True" RadiusFactor="1" RimThickness="10" RimColor="#303036">
                             <gauge:Scale.Pointers>
                                 <gauge:NeedlePointer x:Name="guagePointer" Color="Yellow" Value="0" />
                             </gauge:Scale.Pointers>
@@ -76,7 +75,7 @@
                                 </Grid.ColumnDefinitions>
                                 <gauge:SfCircularGauge WidthRequest="100" HeightRequest="110" Grid.Column="0">
                                     <gauge:SfCircularGauge.Scales>
-                                        <gauge:Scale StartAngle="270"  RimColor="AliceBlue"  SweepAngle="360" StartValue="0" EndValue="60" ShowLabels="False" Interval="60" MinorTicksPerInterval="0" ShowTicks="False" ShowFirstLabel="False">
+                                        <gauge:Scale StartAngle="270"  RimColor="AliceBlue"  SweepAngle="360" StartValue="0" LabelColor="Red" EndValue="60" ShowLabels="True" Interval="5" MinorTicksPerInterval="0" ShowTicks="True" ShowFirstLabel="False">
                                             <gauge:Scale.Pointers>
                                                 <gauge:NeedlePointer x:Name="timerGuagePointer" Value="0" Color="Red" />
                                             </gauge:Scale.Pointers>
@@ -126,6 +125,8 @@
             </ScrollView>
 
             <!--#endregion-->
+            
+            <!--#region Life lost message -->
             <AbsoluteLayout x:Name="controlLayout" IsVisible="false" Grid.RowSpan="3" 
                  VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
 
@@ -145,11 +146,13 @@
                             <RowDefinition Height="2*"/>
                         </Grid.RowDefinitions>
 
+                        <!--Wrong Message-->
                         <Label x:Name="lblWrong" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center" FontSize="28" FontAttributes="Bold" TextColor="#e2373c" Text="Wrong Answer"/>
-
+                        
+                        <!--GameOver Message-->
                         <Label  x:Name="lblGameOver" IsVisible="false" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center" FontSize="28" FontAttributes="Bold" TextColor="#e2373c" Text="GAME OVER"/>
 
-
+                        <!--hearts-->
                         <Grid HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="1">
                             <Image Grid.Column="0"  x:Name="life1" Source="heart.png" Scale="0.4"/>
                             <Image Grid.Column="1" x:Name="life2" Source="heart.png" Scale="0.4"/>
@@ -169,6 +172,40 @@
 
               
             </AbsoluteLayout>
+            <!--#endregion-->
+
+            <!--#region Stage Cleared -->
+            <AbsoluteLayout x:Name="gameClearedLayout" IsVisible="true" Grid.RowSpan="3" 
+                 VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+
+                <BoxView
+                      AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
+              AbsoluteLayout.LayoutFlags="All"          
+              BackgroundColor= "#303036f2"
+              HeightRequest="200"
+              WidthRequest="200"/>
+
+                <Frame   AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
+              AbsoluteLayout.LayoutFlags="All" BackgroundColor="Transparent" Background="#303036">
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="8*"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Label HorizontalOptions="Center" FontSize="28" FontAttributes="Bold" TextColor="#e2373c" VerticalTextAlignment="Center">Your Score: 100</Label>
+                        <Image  Margin="0,20,0,0" x:Name="animeMeme" Aspect="AspectFit" VerticalOptions="StartAndExpand" Grid.Row="1" Source="https://ahseeit.com/anime/king-include/uploads/2020/10/97298653_932129123875973_4067169211974800413_n-2224931733.jpg"></Image>
+                         <Button Grid.Row="2" Clicked="ResetGame" Text="Play Again" TextColor="GhostWhite" BorderColor="Green"/>
+                    </Grid>
+
+                </Frame>
+
+
+            </AbsoluteLayout>
+            <!--#endregion-->
+
+
         </Grid>
     </ContentPage.Content>
 </ContentPage>
