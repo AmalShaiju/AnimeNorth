@@ -147,10 +147,10 @@
                         </Grid.RowDefinitions>
 
                         <!--Wrong Message-->
-                        <Label x:Name="lblWrong" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center" FontSize="28" FontAttributes="Bold" TextColor="#e2373c" Text="Wrong Answer"/>
+                        <Label x:Name="lblWrong" Grid.Row="0" VerticalOptions="Center" HorizontalTextAlignment="Center" HorizontalOptions="Center" FontSize="28" FontAttributes="Bold" TextColor="#e2373c" Text="Wrong Answer"/>
                         
                         <!--GameOver Message-->
-                        <Label  x:Name="lblGameOver" IsVisible="false" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center" FontSize="28" FontAttributes="Bold" TextColor="#e2373c" Text="GAME OVER"/>
+                        <Label  x:Name="lblGameOver"  IsVisible="false" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center" FontSize="28" FontAttributes="Bold" TextColor="#e2373c" Text="GAME OVER"/>
 
                         <!--hearts-->
                         <Grid HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="1">
@@ -175,9 +175,9 @@
             <!--#endregion-->
 
             <!--#region Stage Cleared -->
-            <AbsoluteLayout x:Name="gameClearedLayout" IsVisible="true" Grid.RowSpan="3" 
+            <AbsoluteLayout x:Name="gameClearedLayout" IsVisible="false" Grid.RowSpan="3" 
                  VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-
+            
                 <BoxView
                       AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
               AbsoluteLayout.LayoutFlags="All"          
@@ -194,17 +194,20 @@
                             <RowDefinition Height="8*"/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <Label HorizontalOptions="Center" FontSize="28" FontAttributes="Bold" TextColor="#e2373c" VerticalTextAlignment="Center">Your Score: 100</Label>
+                        <StackLayout HorizontalOptions="Center" Grid.Row="0" Orientation="Horizontal">
+                            <Image Source="https://64.media.tumblr.com/970970f2636710452dcd9331dd503a0e/tumblr_olhfx6Y2h61tudevfo4_250.gif"/>
+                            <Label HorizontalTextAlignment="Center" HorizontalOptions="Center" FontSize="18" FontAttributes="Bold" TextColor="#e2373c" VerticalTextAlignment="Center">Congragulations Choosen One</Label>
+                            <Image Source="https://64.media.tumblr.com/970970f2636710452dcd9331dd503a0e/tumblr_olhfx6Y2h61tudevfo4_250.gif"/>
+                        </StackLayout>
+                       
                         <Image  Margin="0,20,0,0" x:Name="animeMeme" Aspect="AspectFit" VerticalOptions="StartAndExpand" Grid.Row="1" Source="https://ahseeit.com/anime/king-include/uploads/2020/10/97298653_932129123875973_4067169211974800413_n-2224931733.jpg"></Image>
                          <Button Grid.Row="2" Clicked="ResetGame" Text="Play Again" TextColor="GhostWhite" BorderColor="Green"/>
                     </Grid>
-
                 </Frame>
 
 
             </AbsoluteLayout>
             <!--#endregion-->
-
 
         </Grid>
     </ContentPage.Content>

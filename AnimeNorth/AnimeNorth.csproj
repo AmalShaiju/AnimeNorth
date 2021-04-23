@@ -11,8 +11,27 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="clear1.mp3" />
+    <None Remove="correct1.mp3" />
+    <None Remove="correct2.mp3" />
+    <None Remove="correct3.mp3" />
+    <None Remove="reset.mp3" />
+    <None Remove="wrong2.mp3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="clear1.mp3" />
+    <EmbeddedResource Include="correct1.mp3" />
+    <EmbeddedResource Include="correct2.mp3" />
+    <EmbeddedResource Include="correct3.mp3" />
+    <EmbeddedResource Include="reset.mp3" />
+    <EmbeddedResource Include="wrong2.mp3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
     <PackageReference Include="Syncfusion.Xamarin.SfGauge" Version="19.1.0.56" />
+    <PackageReference Include="Xam.Plugin.SimpleAudioPlayer" Version="1.4.0" />
     <PackageReference Include="Xamarin.CommunityToolkit" Version="1.1.0" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
     <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />

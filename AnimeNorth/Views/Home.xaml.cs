@@ -8,6 +8,9 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using System.Timers;
 using AnimeNorth.Data;
+using System.Reflection;
+using System.IO;
+using Plugin.SimpleAudioPlayer;
 
 namespace AnimeNorth.Views
 {
@@ -16,6 +19,7 @@ namespace AnimeNorth.Views
     {
         IAnimeRepository AnimeRepository;
         Random random = new Random();
+        ISimpleAudioPlayer audio = Plugin.SimpleAudioPlayer.CrossSimpleAudioPlayer.Current;
 
 
         private string Answer { get; set; }
@@ -28,8 +32,19 @@ namespace AnimeNorth.Views
         "https://www.reddit.com/r/ProgrammerAnimemes/",
         "https://i.redd.it/q6keqrb670r61.jpg",
         "https://i.redd.it/97qtim8k5ml61.jpg",
+        "https://i.redd.it/s6dwjsi4qid61.jpg",
+        "https://i.redd.it/mx5s7v1u91461.png",
         "https://i.redd.it/2mw18vl998l61.png",
-        "https://preview.redd.it/zm04gnbwv2c61.jpg?width=640&crop=smart&auto=webp&s=fbc0c0e1179a9bb8280b1b4dd71d16225c56779c"
+        });
+
+        private List<string> correctAnswerSounds = new List<string>(new string[] {
+        "correct1",
+        "correct2",
+        "correct3",
+        });
+
+        private List<string> gameClearedSound = new List<string>(new string[] {
+        "clear1",
         });
 
         private int lifeLeft = 4;
@@ -42,16 +57,20 @@ namespace AnimeNorth.Views
             AnimeRepository = new AnimeRepository();
         }
 
-        protected  override void OnAppearing()
+        protected override void OnAppearing()
         {
-             SetUpRound();
+            SetUpRound();
         }
 
         private async void SetUpRound()
         {
             try
             {
-                deviceTimer.Stop();
+                // stop the sound if any is being played
+                audio.Stop();
+
+                //stop the timer
+               deviceTimer.Stop();
 
             }
             catch
@@ -77,14 +96,14 @@ namespace AnimeNorth.Views
             this.frameOption4.Content = buttons[3];
 
 
-             deviceTimer = new DeviceTimer(StartTimer, TimeSpan.FromSeconds(1), true, true);
-           
+            deviceTimer = new DeviceTimer(StartTimer, TimeSpan.FromSeconds(1), true, true);
+
 
         }
 
         private void StartTimer()
         {
-            if(timerGuagePointer.Value != 60)
+            if (timerGuagePointer.Value != 60)
             {
                 timerGuagePointer.Value += 1;
             }
@@ -106,13 +125,13 @@ namespace AnimeNorth.Views
             catch
             {
                 // if no anime exist for the random id get one from hard coded
-                anime = await AnimeRepository.GetAnimeAsync(random.Next(100,107));
+                anime = await AnimeRepository.GetAnimeAsync(random.Next(100, 107));
             }
             finally
             {
                 // if the synopsis is too short 
                 if (anime.Data.Attributes.Synopsis.Length < 100)
-                    anime = await AnimeRepository.GetAnimeAsync(random.Next(1,20));
+                    anime = await AnimeRepository.GetAnimeAsync(random.Next(1, 20));
 
                 this.Answer = anime.Data.Attributes.Titles.EnJp;
 
@@ -146,7 +165,7 @@ namespace AnimeNorth.Views
                 }
                 finally
                 {
-                    if(options.Contains(anime.Data.Attributes.Titles.EnJp))
+                    if (options.Contains(anime.Data.Attributes.Titles.EnJp))
                         anime = await AnimeRepository.GetAnimeAsync(random.Next(1, 20));
 
                     options.Add(anime.Data.Attributes.Titles.EnJp);
@@ -172,15 +191,24 @@ namespace AnimeNorth.Views
                 (sender as Button).BackgroundColor = Color.SeaGreen;
 
                 Score += 10;
-                
+
                 //to clear the timer that is currently going on
                 //deviceTimer.Stop();
 
-                SetUpRound();
-                if(Score > 5)
+
+                if (Score > 5)
                 {
                     GameCleared();
                 }
+                else
+                {
+                    Playsound(correctAnswerSounds[random.Next(correctAnswerSounds.Count)]);
+
+                    Thread.Sleep(3000);
+
+                    SetUpRound();
+                }
+
             }
             else
             {
@@ -196,12 +224,12 @@ namespace AnimeNorth.Views
                 if (Score > 0)
                     Score -= 5;
 
+                Playsound("wrong2");
             }
 
+           (sender as Button).TextColor = Color.White;
 
-            (sender as Button).TextColor = Color.White;
-
-            // Change Guage 
+            // Change score Guage 
             guagePointer.Value = Score;
 
         }
@@ -254,14 +282,14 @@ namespace AnimeNorth.Views
                 lblFinalScore.Text = $"Your Score : {Score}";
                 lblFinalScore.IsVisible = true;
             }
-           
+
         }
 
         private void ContinueGame(object sender, EventArgs e)
         {
             //to clear the timer that is currently going on
-          //  deviceTimer.Stop();
-            
+            //  deviceTimer.Stop();
+
             // setup next round
             SetUpRound();
 
@@ -288,9 +316,12 @@ namespace AnimeNorth.Views
 
             lblWrong.IsVisible = true;
             btnContinue.IsVisible = true;
-            
-             //to clear the timer that is currently going on
-           // deviceTimer.Stop();
+
+            // play reset sound
+            Playsound("reset");
+
+            Thread.Sleep(1800);
+
             SetUpRound();
 
         }
@@ -299,6 +330,25 @@ namespace AnimeNorth.Views
         {
             gameClearedLayout.IsVisible = true;
             animeMeme.Source = memes[random.Next(memes.Count)];
+
+            Playsound("clear1",true);
+        }
+
+        Stream GetStreamFromFile(string filename)
+        {
+            var assembly = typeof(App).GetTypeInfo().Assembly;
+
+            var stream = assembly.GetManifestResourceStream("AnimeNorth." + filename);
+
+            return stream;
+        }
+
+        private void Playsound(string path, bool repeat = false)
+        {
+            var stream = GetStreamFromFile(path + ".mp3");
+            audio.Load(stream);
+            audio.Loop = repeat;
+            audio.Play();
         }
     }
 
